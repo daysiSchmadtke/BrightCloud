@@ -6,22 +6,34 @@ import { signOut } from '../utils/auth';
 
 export default function NavBar() {
   return (
-    <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+    <Navbar collapseOnSelect expand="lg" variant="primary">
       <Container>
-        <Link passHref href="/" className='navbar-brand'>
-         CHANGE ME
+        <Link passHref href="/" className="navbar-brand">
+          <img src="https://www.dropbox.com/scl/fi/pie7oyfnigjenunsdmxn5/logo.png?rlkey=p3jcvl89k1o0zhva6smkct52b&st=dmc6jojw&raw=1" alt="logo" id="logo" />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            {/* CLOSE NAVBAR ON LINK SELECTION: https://stackoverflow.com/questions/72813635/collapse-on-select-react-bootstrap-navbar-with-nextjs-not-working */}
-            <Link className="nav-link" href="/">
-              Home
+            <Link className="nav-link text-primary" href="/">
+              Expenses Tracker
+            </Link>
+            <Link className="nav-link text-primary" href="/">
+              Calendar
+            </Link>
+            <Link className="nav-link text-primary" href="/">
+              Profile
             </Link>
           </Nav>
-
-          <Button variant="danger" onClick={signOut}>
-              Sign Out
+          <Link href="/clients/new" passHref>
+            <Button className="newClient" variant="success">
+              &#43; Add New Client
+            </Button>
+          </Link>
+          <Button className="newLead" variant="danger">
+            Leads
+          </Button>
+          <Button className="signOut" variant="danger" onClick={signOut}>
+            Sign Out
           </Button>
         </Navbar.Collapse>
       </Container>

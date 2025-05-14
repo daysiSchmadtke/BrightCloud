@@ -1,30 +1,27 @@
 'use client';
 
- // any component that uses useAuth needs this because if a component directly imports useAuth, it needs to be a client component since useAuth uses React hooks.
-
-import { Button } from 'react-bootstrap';
-import { signOut } from '@/utils/auth'; // anything in the src dir, you can use the @ instead of relative paths
-import { useAuth } from '@/utils/context/authContext';
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { getClients } from '@/api/clientsData';
+import ClientCard from '@/components/ClientCard';
 
 function Home() {
-  const { user } = useAuth();
+  const [clients, setClients] = useState([]);
+
+  useEffect(() => {
+    getClients().then(setClients);
+  }, []);
 
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <Button variant="danger" type="button" size="lg" className="copy-btn" onClick={signOut}>
-        Sign Out
-      </Button>
-    </div>
+    <Container className="home-container">
+      <Row>
+        {clients.map((clientObj) => (
+          <Col key={clientObj.firebaseKey} md={6} lg={4}>
+            <ClientCard clientObj={clientObj} />
+          </Col>
+        ))}
+      </Row>
+    </Container>
   );
 }
 
