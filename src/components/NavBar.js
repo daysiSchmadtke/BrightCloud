@@ -8,7 +8,7 @@ export default function NavBar() {
   return (
     <Navbar collapseOnSelect expand="lg" variant="primary">
       <Container>
-        <Link passHref href="/" className="navbar-brand">
+        <Link passHref href="/" className="navbar-brand spin-on-load">
           <img src="https://www.dropbox.com/scl/fi/pie7oyfnigjenunsdmxn5/logo.png?rlkey=p3jcvl89k1o0zhva6smkct52b&st=dmc6jojw&raw=1" alt="logo" id="logo" />
         </Link>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />

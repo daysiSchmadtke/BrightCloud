@@ -9,14 +9,18 @@ function Home() {
   const [clients, setClients] = useState([]);
 
   useEffect(() => {
-    getClients().then(setClients);
+    console.log('useEffect is running');
+    getClients().then((data) => {
+      console.log('Fetched clients:', data);
+      setClients(data);
+    });
   }, []);
 
   return (
-    <Container className="home-container">
+    <Container>
       <Row>
         {clients.map((clientObj) => (
-          <Col key={clientObj.firebaseKey} md={6} lg={4}>
+          <Col key={clientObj.firebaseKey} md={6} lg={4} className="col">
             <ClientCard clientObj={clientObj} />
           </Col>
         ))}
