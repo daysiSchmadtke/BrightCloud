@@ -2,16 +2,23 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getClients = (caregiverId) =>
+const getClients = () =>
   new Promise((resolve, reject) => {
-    fetch(`${endpoint}/clients.json?orderBy="caregiver_id"&equalTo="${caregiverId}"`, {
+    const url = `${endpoint}/clients.json`; // Remove orderBy and equalTo parameters
+
+    fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
       },
     })
-      .then((response) => response.json())
-      .then((data) => resolve(Object.values(data)))
+      .then((response) => {
+        if (!response.ok) {
+          return reject(new Error(`HTTP error! Status: ${response.status}`));
+        }
+        return response.json();
+      })
+      .then((data) => resolve(data ? Object.values(data) : []))
       .catch(reject);
   });
 
