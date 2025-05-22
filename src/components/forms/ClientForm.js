@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
-import { useRouter } from 'next/navigation';
 import { createClient, updateClient, getCaregivers } from '@/api/clientsData';
 
-function ClientForm({ client, onUpdate }) {
+function ClientForm({ client, onUpdate, onClose }) {
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -18,16 +17,34 @@ function ClientForm({ client, onUpdate }) {
     notes: '',
     medical_records: null,
     enrollment_records: null,
-    rate: '',
+    rate: 0,
     caregiver_id: '',
   });
 
   const [caregivers, setCaregivers] = useState([]);
-  const router = useRouter();
 
   useEffect(() => {
     getCaregivers().then(setCaregivers);
-    if (client) setFormData(client);
+  }, []);
+
+  useEffect(() => {
+    if (client) {
+      setFormData({
+        ...client,
+        name: client.name ?? '',
+        image: client.image ?? '',
+        parent_name: client.parent_name ?? '',
+        parent_phone_number: client.parent_phone_number ?? '',
+        status: client.status ?? true,
+        start_date: client.start_date ?? '',
+        end_date: client.end_date ?? '',
+        notes: client.notes ?? '',
+        medical_records: client.medical_records ?? null,
+        enrollment_records: client.enrollment_records ?? null,
+        rate: client.rate ?? 0,
+        caregiver_id: client.caregiver_id ?? '',
+      });
+    }
   }, [client]);
 
   const handleChange = (e) => {
@@ -35,27 +52,28 @@ function ClientForm({ client, onUpdate }) {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.files[0] });
+    setFormData({ ...formData, [e.target.name]: e.target.files[0] ?? null });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (!formData.caregiver_id) {
       alert('Please select a caregiver.');
       return;
     }
+
     try {
       if (client) {
         await updateClient(formData);
-        if (onUpdate) {
-          onUpdate();
-        }
+        if (onUpdate) onUpdate();
       } else {
         await createClient(formData);
       }
-      router.push('/');
+
+      if (onClose) onClose();
     } catch (error) {
-      console.error('Form submission failed:', error.message);
+      console.error('Form submission failed:', error);
       alert(`Failed to ${client ? 'update' : 'create'} client: ${error.message}`);
     }
   };
@@ -145,7 +163,7 @@ function ClientForm({ client, onUpdate }) {
           <Col md={6}>
             <Form.Group>
               <Form.Label>Status</Form.Label>
-              <Form.Check type="checkbox" name="status" checked={formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.checked })} />
+              <Form.Check type="checkbox" name="status" checked={!!formData.status} onChange={(e) => setFormData({ ...formData, status: e.target.checked })} />
             </Form.Group>
           </Col>
         </Row>
@@ -187,6 +205,7 @@ ClientForm.propTypes = {
     caregiver_id: PropTypes.string,
   }),
   onUpdate: PropTypes.func,
+  onClose: PropTypes.func,
 };
 
 export default ClientForm;
