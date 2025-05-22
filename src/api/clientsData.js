@@ -4,7 +4,7 @@ const endpoint = clientCredentials.databaseURL;
 
 const getClients = () =>
   new Promise((resolve, reject) => {
-    const url = `${endpoint}/clients.json`; // Remove orderBy and equalTo parameters
+    const url = `${endpoint}/clients.json`;
 
     fetch(url, {
       method: 'GET',
@@ -18,7 +18,17 @@ const getClients = () =>
         }
         return response.json();
       })
-      .then((data) => resolve(data ? Object.values(data) : []))
+      .then((data) => {
+        if (data) {
+          const clientsArray = Object.keys(data).map((key) => ({
+            firebaseKey: key,
+            ...data[key],
+          }));
+          resolve(clientsArray);
+        } else {
+          resolve([]);
+        }
+      })
       .catch(reject);
   });
 
