@@ -47,7 +47,7 @@ function ClientCard({ clientObj, onUpdate }) {
       <Modal show={showModal} onHide={() => setShowModal(false)} dialogClassName="custom-modal">
         <Modal.Header closeButton />
         <Modal.Body>
-          <ClientForm client={clientObj} />
+          <ClientForm client={clientObj} onUpdate={onUpdate} onClose={() => setShowModal(false)} />
         </Modal.Body>
       </Modal>
     </>
@@ -59,8 +59,14 @@ ClientCard.propTypes = {
     id: PropTypes.string.isRequired,
     image: PropTypes.string,
     name: PropTypes.string.isRequired,
-    status: PropTypes.string.isRequired,
-    // You might need to include other properties that ClientForm expects
+    status: PropTypes.bool.isRequired,
+    caregiver_id: PropTypes.string,
+    parent_name: PropTypes.string,
+    parent_phone_number: PropTypes.string,
+    start_date: PropTypes.string,
+    end_date: PropTypes.string,
+    notes: PropTypes.string,
+    rate: PropTypes.number,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
