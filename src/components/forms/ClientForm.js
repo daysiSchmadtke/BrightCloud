@@ -6,7 +6,7 @@ import { Form, Button, Container, Row, Col } from 'react-bootstrap';
 import { useRouter } from 'next/navigation';
 import { createClient, updateClient, getCaregivers } from '@/api/clientsData';
 
-function ClientForm({ client }) {
+function ClientForm({ client, onUpdate }) {
   const [formData, setFormData] = useState({
     name: '',
     image: '',
@@ -38,16 +38,25 @@ function ClientForm({ client }) {
     setFormData({ ...formData, [e.target.name]: e.target.files[0] });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.caregiver_id) {
       alert('Please select a caregiver.');
       return;
     }
-    if (client) {
-      updateClient(formData).then(() => router.push('/'));
-    } else {
-      createClient(formData).then(() => router.push('/'));
+    try {
+      if (client) {
+        await updateClient(formData);
+        if (onUpdate) {
+          onUpdate();
+        }
+      } else {
+        await createClient(formData);
+      }
+      router.push('/');
+    } catch (error) {
+      console.error('Form submission failed:', error.message);
+      alert(`Failed to ${client ? 'update' : 'create'} client: ${error.message}`);
     }
   };
 
@@ -163,6 +172,7 @@ function ClientForm({ client }) {
 
 ClientForm.propTypes = {
   client: PropTypes.shape({
+    id: PropTypes.string,
     name: PropTypes.string,
     image: PropTypes.string,
     parent_name: PropTypes.string,
@@ -175,8 +185,8 @@ ClientForm.propTypes = {
     enrollment_records: PropTypes.instanceOf(File),
     rate: PropTypes.number,
     caregiver_id: PropTypes.string,
-    firebaseKey: PropTypes.string,
   }),
+  onUpdate: PropTypes.func,
 };
 
 export default ClientForm;

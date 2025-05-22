@@ -7,6 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Modal from 'react-bootstrap/Modal';
 import { deleteClient } from '../api/clientsData';
+import ClientForm from './forms/ClientForm';
 
 function ClientCard({ clientObj, onUpdate }) {
   const [showModal, setShowModal] = useState(false);
@@ -43,11 +44,11 @@ function ClientCard({ clientObj, onUpdate }) {
         </Card.Body>
       </Card>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Client</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>{/* Add a ClientForm component for editing */}</Modal.Body>
+      <Modal show={showModal} onHide={() => setShowModal(false)} dialogClassName="custom-modal">
+        <Modal.Header closeButton />
+        <Modal.Body>
+          <ClientForm client={clientObj} />
+        </Modal.Body>
       </Modal>
     </>
   );
@@ -59,6 +60,7 @@ ClientCard.propTypes = {
     image: PropTypes.string,
     name: PropTypes.string.isRequired,
     status: PropTypes.string.isRequired,
+    // You might need to include other properties that ClientForm expects
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
