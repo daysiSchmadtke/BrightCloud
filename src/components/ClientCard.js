@@ -16,8 +16,15 @@ function ClientCard({ clientObj, onUpdate }) {
   const handleDelete = async () => {
     if (window.confirm(`Are you sure you want to delete "${clientObj.name}"?`)) {
       try {
-        await deleteClient(clientObj.id);
-        onUpdate();
+        await deleteClient(clientObj.firebaseKey);
+        console.log(`Deleted client: ${clientObj.firebaseKey}`);
+
+        if (onUpdate) {
+          console.log('Refreshing client list...');
+          onUpdate();
+        } else {
+          console.warn('onUpdate is undefined');
+        }
       } catch (error) {
         console.error('Delete failed:', error.message);
         alert(`Failed to delete client: ${error.message}`);
@@ -32,7 +39,7 @@ function ClientCard({ clientObj, onUpdate }) {
         <Card.Body>
           <Card.Title>{clientObj.name}</Card.Title>
 
-          <Button variant="primary" className="m-2" onClick={() => router.push(`/clients/${clientObj.id}`)}>
+          <Button variant="primary" className="m-2" onClick={() => router.push(`/clients/${clientObj.firebaseKey}`)}>
             VIEW
           </Button>
           <Button variant="info" onClick={() => setShowModal(true)}>
@@ -56,7 +63,7 @@ function ClientCard({ clientObj, onUpdate }) {
 
 ClientCard.propTypes = {
   clientObj: PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    firebaseKey: PropTypes.string.isRequired,
     image: PropTypes.string,
     name: PropTypes.string.isRequired,
     status: PropTypes.bool.isRequired,
