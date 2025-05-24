@@ -173,3 +173,42 @@ h1 {
 .modal-backdrop {
   backdrop-filter:brightness(80%);
 }
+
+.client-details {
+  margin-left: 100px; 
+  padding: 20px;
+}
+
+.client-name {
+  color: #055cd5; 
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.client-image {
+  width: 300px;
+  height: 300px;
+  border-radius: 10%; 
+  margin: 10px auto;
+  object-fit: cover;
+}
+
+.client-info {
+  color: #1b5e20; 
+  font-size: 20px;
+}
+
+.button-group {
+  margin-top: 10px;
+  display: flex;
+  gap: 15px; 
+}
+
+.back-button {
+  font-size: 50px;
+  color: #e73121;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
