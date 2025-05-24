@@ -64,6 +64,7 @@ function ClientCard({ clientObj, onUpdate }) {
 ClientCard.propTypes = {
   clientObj: PropTypes.shape({
     firebaseKey: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
     image: PropTypes.string,
     name: PropTypes.string.isRequired,
     status: PropTypes.bool.isRequired,

@@ -41,7 +41,7 @@ const getSingleClient = (firebaseKey) =>
       },
     })
       .then((response) => response.json())
-      .then((data) => resolve(data))
+      .then(resolve)
       .catch(reject);
   });
 
