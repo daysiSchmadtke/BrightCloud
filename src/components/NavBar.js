@@ -14,13 +14,13 @@ export default function NavBar() {
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
-            <Link className="nav-link text-primary" href="/">
+            <Link className="nav-link text-primary" href="/expensesTracker">
               Expenses Tracker
             </Link>
-            <Link className="nav-link text-primary" href="/">
+            <Link className="nav-link text-primary" href="/calendar">
               Calendar
             </Link>
-            <Link className="nav-link text-primary" href="/">
+            <Link className="nav-link text-primary" href="/profile">
               Profile
             </Link>
           </Nav>
@@ -29,9 +29,12 @@ export default function NavBar() {
               &#43; Add New Client
             </Button>
           </Link>
-          <Button className="newLead" variant="danger">
-            Leads
-          </Button>
+          <Link href="/leads" passHref>
+            <Button className="newLead" variant="danger">
+              Leads
+            </Button>
+          </Link>
+
           <Button className="signOut" variant="danger" onClick={signOut}>
             Sign Out
           </Button>
