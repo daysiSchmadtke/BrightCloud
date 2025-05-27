@@ -7,32 +7,29 @@ import ClientCard from '@/components/ClientCard';
 
 function Home() {
   const [clients, setClients] = useState([]);
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // useCallback to memoize the fetchData function
   const fetchData = useCallback(() => {
-    console.log('Fetching clients...');
     getClients()
       .then((data) => {
-        console.log('Fetched clients:', data);
         setClients(data);
+        setErrorMessage(''); // Clear any previous errors
       })
-      .catch((error) => {
-        console.error('Error fetching clients:', error);
-        // Optionally handle the error (e.g., set an error state)
+      .catch(() => {
+        setErrorMessage('Failed to fetch client data. Please try again later.');
       });
   }, []);
 
   useEffect(() => {
-    console.log('Home useEffect running');
-    fetchData(); // Initial fetch on component mount
+    fetchData();
   }, [fetchData]);
 
   return (
     <Container>
+      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
       <Row>
         {clients.map((clientObj) => (
           <Col key={clientObj.firebaseKey} md={6} lg={4} className="col">
-            {/* Pass the fetchData function as the onUpdate prop */}
             <ClientCard clientObj={clientObj} onUpdate={fetchData} />
           </Col>
         ))}
