@@ -99,4 +99,36 @@ const getCaregivers = () =>
       .catch(reject);
   });
 
-export { getClients, getSingleClient, createClient, updateClient, deleteClient, getCaregivers };
+const getLeads = (caregiverId) =>
+  new Promise((resolve, reject) => {
+    const url = `${endpoint}/caregivers/${caregiverId}/leads.json`;
+
+    fetch(url, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          return reject(new Error(`HTTP error! Status: ${response.status}`));
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log('Raw Leads Data from Firebase:', data);
+
+        if (data) {
+          const leadsArray = Object.keys(data).map((key) => ({
+            id: key,
+            ...data[key],
+          }));
+          resolve(leadsArray);
+        } else {
+          resolve([]);
+        }
+      })
+      .catch(reject);
+  });
+
+export { getClients, getSingleClient, createClient, updateClient, deleteClient, getCaregivers, getLeads };
