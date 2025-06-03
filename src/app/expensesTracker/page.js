@@ -2,30 +2,41 @@
 
 import { useState, useEffect } from 'react';
 import { getClients } from '@/api/clientsData';
+import { useAuth } from '../../utils/context/authContext';
 
 export default function FinanceTracker() {
+  const { user } = useAuth();
+
   const [clients, setClients] = useState([]);
   const [expenses, setExpenses] = useState([]);
   const [expenseName, setExpenseName] = useState('');
   const [expenseAmount, setExpenseAmount] = useState('');
 
   useEffect(() => {
-    getClients()
-      .then((data) => setClients(data))
-      .catch((error) => console.error('Error fetching clients:', error));
-  }, []);
+    if (user && user.uid) {
+      getClients(user.uid)
+        .then((data) => setClients(data))
+        .catch((error) => console.error('Error fetching clients for finance tracker:', error));
+    } else {
+      setClients([]);
+      console.log('User not logged in, not fetching clients for finance tracker.');
+    }
+  }, [user]);
 
   let weeklyIncome = 0;
   clients.forEach((client) => {
-    weeklyIncome += parseFloat(client.rate);
+    weeklyIncome += parseFloat(client.rate || 0);
   });
 
   const totalIncome = weeklyIncome * 4;
-  const totalExpenses = expenses.reduce((sum, exp) => sum + exp.amount, 0);
+  const totalExpenses = expenses.reduce((sum, exp) => sum + parseFloat(exp.amount || 0), 0);
   const finalBalance = totalIncome - totalExpenses;
 
   const addExpense = () => {
-    if (!expenseName || !expenseAmount) return;
+    if (!expenseName || !expenseAmount) {
+      alert('Please enter both an expense name and amount.');
+      return;
+    }
     setExpenses([...expenses, { id: Date.now(), name: expenseName, amount: parseFloat(expenseAmount) }]);
     setExpenseName('');
     setExpenseAmount('');
@@ -37,7 +48,7 @@ export default function FinanceTracker() {
 
       <h2>Income</h2>
       <p>
-        Monthly Income: <strong>${totalIncome.toFixed(2)}</strong>
+        Monthly Income (from clients): <strong>${totalIncome.toFixed(2)}</strong>
       </p>
 
       <h2>Expenses</h2>
@@ -49,13 +60,21 @@ export default function FinanceTracker() {
         </button>
       </div>
 
-      <ul>
-        {expenses.map((exp) => (
-          <li key={exp.id}>
-            {exp.name}: <strong>${exp.amount.toFixed(2)}</strong>
-          </li>
-        ))}
-      </ul>
+      <h3>Current Expenses :</h3>
+      {expenses.length === 0 ? (
+        <p>No expenses added yet for this session.</p>
+      ) : (
+        <ul>
+          {expenses.map((exp) => (
+            <li key={exp.id}>
+              {exp.name}: <strong>${exp.amount.toFixed(2)}</strong>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p>
+        Total Expenses: <strong>${totalExpenses.toFixed(2)}</strong>
+      </p>
 
       <h2>Total Balance</h2>
       <p>
