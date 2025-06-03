@@ -36,5 +36,5 @@ Home daycare owners juggle numerous responsibilities, making traditional methods
 
 ## Video Walkthrough
 
-[📹 Video Walkthrough - Loom]([https://www.loom.com/share/your-loom-link](https://www.loom.com/share/12b55f9c5dc8470a8eee9e6c5fec2eda?sid=4b62fb08-3123-4925-b5cc-3cb9709ebea7)) --
+<div style="position: relative; padding-bottom: 56.25%; height: 0;"><iframe src="https://www.loom.com/embed/12b55f9c5dc8470a8eee9e6c5fec2eda?sid=acef1fe2-730a-4daf-8013-8977bb5c46a6" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe></div>
 
