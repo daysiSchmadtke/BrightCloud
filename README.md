@@ -34,7 +34,7 @@ Home daycare owners juggle numerous responsibilities, making traditional methods
 ![expensetrackersreensh](https://github.com/user-attachments/assets/7bb50dc7-6412-4051-b8e0-0c676afaf35c)
 
 
-## Video Walkthrough
+## Loom Video Walkthrough
 
 https://www.loom.com/embed/12b55f9c5dc8470a8eee9e6c5fec2eda?sid=acef1fe2-730a-4daf-8013-8977bb5c46a6 
 
