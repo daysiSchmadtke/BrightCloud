@@ -23,12 +23,18 @@ Home daycare owners juggle numerous responsibilities, making traditional methods
 [🎨 BrightCloud Canva Design](https://www.canva.com/your-design-link) ## Screenshots
 
 ![clientDirectory screenshot](https://github.com/user-attachments/assets/4eddf62a-01b5-4a1e-8b72-c54b70b01894)
+
+
 ![ClientProfiless](https://github.com/user-attachments/assets/fa6c6737-d939-4ad2-9f4f-4095935a863f)
+
+
 ![Newclientform](https://github.com/user-attachments/assets/6160f042-87b2-4a60-9968-f2ae49d976e6)
+
+
 ![expensetrackersreensh](https://github.com/user-attachments/assets/7bb50dc7-6412-4051-b8e0-0c676afaf35c)
 
 
 ## Video Walkthrough
 
-[📹 Video Walkthrough - Loom](https://www.loom.com/share/your-loom-link) ---
+[📹 Video Walkthrough - Loom]([https://www.loom.com/share/your-loom-link](https://www.loom.com/share/12b55f9c5dc8470a8eee9e6c5fec2eda?sid=4b62fb08-3123-4925-b5cc-3cb9709ebea7)) --
 
