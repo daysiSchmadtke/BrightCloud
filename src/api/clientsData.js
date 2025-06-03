@@ -2,9 +2,14 @@ import { clientCredentials } from '../utils/client';
 
 const endpoint = clientCredentials.databaseURL;
 
-const getClients = () =>
+const getClients = (caregiverAuthUID) =>
   new Promise((resolve, reject) => {
-    const url = `${endpoint}/clients.json`;
+    if (!caregiverAuthUID) {
+      resolve([]);
+      return;
+    }
+
+    const url = `${endpoint}/clients.json?orderBy="caregiver_id"&equalTo="${caregiverAuthUID}"`;
 
     fetch(url, {
       method: 'GET',
@@ -14,7 +19,10 @@ const getClients = () =>
     })
       .then((response) => {
         if (!response.ok) {
-          return reject(new Error(`HTTP error! Status: ${response.status}`));
+          return response.text().then((text) => {
+            const errorDetail = text ? ` - ${text}` : '';
+            throw new Error(`HTTP error! Status: ${response.status}${errorDetail}`);
+          });
         }
         return response.json();
       })
@@ -29,7 +37,10 @@ const getClients = () =>
           resolve([]);
         }
       })
-      .catch(reject);
+      .catch((error) => {
+        console.error('getClients - Error during fetch operation:', error);
+        reject(error);
+      });
   });
 
 const getSingleClient = (firebaseKey) =>
