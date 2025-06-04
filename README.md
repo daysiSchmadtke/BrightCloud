@@ -16,6 +16,7 @@ Home daycare owners juggle numerous responsibilities, making traditional methods
 * **Calendar (In Progress):** Organizes schedules and key events.
 
 ## Design & Planning
+https://github.com/users/daysiSchmadtke/projects/3
 
 ### Wireframes
 [📌 Wireframe - Figma](https://www.figma.com/your-wireframe-link) ### Data Diagrams
