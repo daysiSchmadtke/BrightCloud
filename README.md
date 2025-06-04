@@ -4,6 +4,9 @@
 
 Home daycare owners juggle numerous responsibilities, making traditional methods like pen and paper or spreadsheets inefficient. BrightCloud provides a streamlined, digital solution for small-scale daycare operations, ensuring vital records are always accessible and easy to manage.
 
+## User Description
+The daycare administrator is responsible for overseeing daily operations and managing client records within the daycare facility. They need quick and efficient access to up-to-date information about all enrolled clients to perform tasks such as updating records, confirming enrollment status, and addressing parent inquiries. To streamline their workflow, the administrator benefits from a centralized, easy-to-navigate list that displays each client’s name, enrollment status, and provides direct links to individual profiles. This allows them to minimize time spent searching and focus more on delivering quality service and maintaining accurate records.
+
 ## Live Project
 
 
