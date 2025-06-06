@@ -1,3 +1,5 @@
+'use client';
+
 import PropTypes from 'prop-types';
 import { useAuth } from '@/utils/context/authContext';
 import Loading from '@/components/Loading';
