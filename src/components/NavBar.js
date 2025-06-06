@@ -1,8 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+'use client';
+
 import React from 'react';
 import Link from 'next/link';
 import { Navbar, Container, Nav, Button } from 'react-bootstrap';
 import { signOut } from '../utils/auth';
+import AiLookupButton from './AIButton';
 
 export default function NavBar() {
   return (
@@ -23,6 +25,9 @@ export default function NavBar() {
             <Link className="nav-link text-primary" href="/profile">
               Profile
             </Link>
+            <Nav.Item className="d-flex align-items-center">
+              <AiLookupButton />
+            </Nav.Item>
           </Nav>
           <Link href="/clients/new" passHref>
             <Button className="newClient" variant="success">
