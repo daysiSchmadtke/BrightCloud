@@ -1,5 +1,3 @@
-// next.config.js
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -7,7 +5,10 @@ const nextConfig = {
     dirs: ['pages', 'components', 'lib'],
   },
   images: {
-    domains: ['lh3.googleusercontent.com'],
+    domains: ['lh3.googleusercontent.com', 'firebasestorage.googleapis.com'],
+  },
+  experimental: {
+    serverActions: true,
   },
 };
 
